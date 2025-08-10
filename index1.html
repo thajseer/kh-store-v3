@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover"
+  />
+  <title>K H STORE — Social Media Scam Awareness</title>
+  <meta name="description" content="K H STORE: Stay safe online. Learn to spot and avoid social media scams. Malayalam safety tips included." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Malayalam:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,0.06);
+      --panel-border: rgba(255,255,255,0.12);
+      --text: #e8ecf3;
+      --muted: #a9b2c7;
+      --brand: #7c5cff;
+      --brand-2: #15f8a9;
+      --warning: #ffb020;
+      --danger: #ff5470;
+      --success: #1fdf64;
+      --shadow: 0 8px 30px rgba(0,0,0,0.25);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --maxw: 1100px;
+      --card-glow: 0 0 0px rgba(124,92,255,0), inset 0 0 0 rgba(0,0,0,0);
+    }
+    [data-theme="light"]{
+      --bg: #f7f9fc;
+      --panel: rgba(14,22,42,0.04);
+      --panel-border: rgba(14,22,42,0.08);
+      --text: #0f172a;
+      --muted: #475569;
+      --shadow: 0 10px 24px rgba(2,6,23,0.05);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", Arial, "Noto Sans Malayalam", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 10% -10%, rgba(124,92,255,0.15), transparent 60%),
+        radial-gradient(1000px 700px at 110% 0%, rgba(38,224,160,0.13), transparent 60%),
+        linear-gradient(180deg, rgba(7,10,24,0.9), var(--bg));
+      line-height:1.6;
+      letter-spacing:0.2px;
+    }
+    a{color:inherit}
+    .container{max-width:var(--maxw); margin-inline:auto; padding:0 20px}
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: saturate(140%) blur(12px);
+      background: linear-gradient(to bottom, rgba(10,14,28,0.75), rgba(10,14,28,0.35));
+      border-bottom:1px solid var(--panel-border);
+    }
+    [data-theme="light"] header{
+      background: linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center; text-decoration:none
+    }
+    .logo{
+      width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
+      background: conic-gradient(from 160deg, var(--brand), var(--brand-2));
+      color:white; font-weight:800; box-shadow: var(--shadow);
+    }
+    .title{
+      font-weight:800; letter-spacing:0.3px; font-size:1.1rem
+    }
+    .title small{display:block; font-weight:600; color:var(--muted); font-size:0.75rem; margin-top:2px}
+    .nav-actions{display:flex; gap:10px; align-items:center}
+    .btn{
+      appearance:none; border:none; cursor:pointer; border-radius:999px;
+      padding:10px 14px; font-weight:700; display:inline-flex; align-items:center; gap:8px;
+      background:var(--panel); color:var(--text); border:1px solid var(--panel-border);
+      transition: transform .12s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover{transform:translateY(-1px); box-shadow: var(--shadow)}
+    .btn.primary{
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#0b1020; border-color: transparent;
+    }
+    .btn .dot{width:8px; height:8px; border-radius:50%; background:var(--success)}
+    .theme-toggle{width:44px; height:44px; border-radius:999px; display:grid; place-items:center}
+    main{padding:28px 0 80px}
+    .hero{
+      display:grid; gap:16px; padding:40px 0 14px; align-items:center;
+    }
+    .hero h1{
+      font-size: clamp(2rem, 4vw + 0.5rem, 3.2rem);
+      line-height:1.05; margin:0;
+      letter-spacing:-0.02em;
+      background: linear-gradient(180deg, #fff, #cbd5e1 60%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    [data-theme="light"] .hero h1{background: linear-gradient(180deg, #0f172a, #27324a 70%); -webkit-background-clip:text; color:transparent}
+    .hero p{color:var(--muted); margin:0; font-size: clamp(0.95rem, 1vw + .6rem, 1.1rem)}
+    .hero-cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .panel{
+      background: var(--panel); border:1px solid var(--panel-border); border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .grid{
+      display:grid; gap:16px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .col-8{grid-column: span 8}
+    .col-4{grid-column: span 4}
+    @media (max-width: 960px){
+      .col-8,.col-4{grid-column: 1 / -1}
+      .hero{padding-top:28px}
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:12px;
+      padding:6px 10px; border-radius:999px; border:1px dashed var(--panel-border);
+      background: rgba(124,92,255,0.12);
+    }
+    .section{margin-top:26px}
+    .section h2{
+      margin:0 0 10px; font-size: clamp(1.3rem, 1.6vw + .8rem, 1.8rem);
+      letter-spacing:-0.01em
+    }
+    .cards{display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:12px}
+    .card{
+      border-radius: var(--radius-sm); border:1px solid var(--panel-border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0));
+      padding:16px; position:relative; overflow:hidden; transition: transform .12s ease, box-shadow .2s ease;
+    }
+    .card:hover{transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124,92,255,0.12)}
+    .card .icon{
+      width:36px; height:36px; border-radius:10px; display:grid; place-items:center; margin-bottom:8px;
+      background: radial-gradient(120% 120% at 30% 20%, rgba(124,92,255,0.4), rgba(38,224,160,0.35));
+      border:1px solid var(--panel-border)
+    }
+    .card h3{margin:0 0 6px; font-size:1rem}
+    .card p{margin:0; color:var(--muted); font-size:0.92rem}
+    .tips{
+      padding:18px; display:grid; gap:12px
+    }
+    .tips header{position:sticky; top:64px}
+    .tips h3{margin:0; font-size:1.1rem}
+    ol.ml{
+      margin:0; padding-left: 1.2rem; line-height:1.7; font-family: "Noto Sans Malayalam", Inter, sans-serif;
+      font-size: 1rem;
+    }
+    ol.ml li{margin: 6px 0}
+    .tag{
+      display:inline-block; padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px; color:#0b1020;
+      background: linear-gradient(135deg, var(--warning), #ffd383);
+      border:1px solid rgba(0,0,0,0.08)
+    }
+    .resources{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:8px
+    }
+    .link{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px;
+      background: var(--panel); border:1px solid var(--panel-border); text-decoration:none; font-weight:600;
+    }
+    .link:hover{box-shadow: var(--shadow)}
+    footer{
+      margin-top:40px; padding:20px 0 40px; color:var(--muted); font-size:0.95rem
+    }
+    .kbd{
+      border:1px solid var(--panel-border); background: var(--panel);
+      padding:3px 6px; border-radius:6px; font-weight:700; font-size:12px;
+    }
+    .note{color:var(--muted); font-size:0.92rem}
+    .divider{
+      height:1px; background: var(--panel-border); border:0; margin:14px 0
+    }
+    .sr-only{position:absolute!important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
+
+    /* JotForm chat floating button */
+    .chat-fab{
+      position:fixed; right:20px; bottom:20px; z-index:9999; width:56px; height:56px; border-radius:50%;
+      display:grid; place-items:center; font-size:24px; cursor:pointer; border:none; outline:none;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:#071223; box-shadow: 0 8px 28px rgba(7,16,40,0.35);
+    }
+    .chat-fab:active{transform:scale(0.98)}
+
+    @media (max-width:600px){
+      .chat-fab{right:16px; bottom:16px; width:52px; height:52px}
+    }
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="K H STORE home">
+        <div class="logo" aria-hidden="true">KH</div>
+        <div class="title">
+          K H STORE
+          <small>Social Media Scam Awareness</small>
+        </div>
+      </a>
+      <div class="nav-actions">
+        <button class="btn theme-toggle" id="themeBtn" aria-label="Toggle theme">
+          <span id="themeIcon" aria-hidden="true">🌙</span>
+        </button>
+        <a class="btn primary" href="https://cybercrime.gov.in/" target="_blank" rel="noopener">
+          <span class="dot" aria-hidden="true"></span> Report a scam
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="container hero">
+      <span class="badge">Stay sharp • Stay safe • Stay kind</span>
+      <h1>We love our community. Let’s keep it safe from social media scams.</h1>
+      <p>
+        This page by <strong>K H STORE</strong> helps you spot common scams and protect your money, identity, and peace of mind. Share it with family and friends—especially elders and new internet users.
+      </p>
+      <div class="hero-cta">
+        <a class="btn primary" href="#tips">Read safety tips</a>
+        <a class="btn" href="#scams">See common scams</a>
+        <span class="note">Emergency? Call India’s cybercrime helpline 1930.</span>
+      </div>
+    </section>
+
+    <section class="container section grid" id="scams" aria-labelledby="scam-heading">
+      <div class="col-8">
+        <h2 id="scam-heading">Common social media scams</h2>
+        <div class="cards">
+          <article class="card">
+            <div class="icon">🕵️</div>
+            <h3>Impersonation accounts</h3>
+            <p>Scammers pose as brands, celebrities, or relatives to ask for money or information via DMs or calls.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🔗</div>
+            <h3>Phishing links</h3>
+            <p>Short links or look‑alike domains steal passwords. They often mimic login pages or “prize claim” sites.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🧾</div>
+            <h3>Fake refunds & KYC</h3>
+            <p>“Account blocked” or “KYC expired”—they send apps/links to control your device or drain your account.</p>
+          </article>
+          <article class="card">
+            <div class="icon">💼</div>
+            <h3>Job/investment traps</h3>
+            <p>Too‑good returns or “quick tasks” with upfront fees. Early gains lure you; then the money vanishes.</p>
+          </article>
+          <article class="card">
+            <div class="icon">📦</div>
+            <h3>Courier reschedule scams</h3>
+            <p>Texts claim missed delivery; links request card/UPI details or install spyware.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🧾</div>
+            <h3>UPI request & QR myths</h3>
+            <p>Accepting a UPI “request” or scanning random QR codes can send money out, not bring money in.</p>
+          </article>
+        </div>
+      </div>
+
+      <aside class="col-4 panel tips" id="tips">
+        <div>
+          <span class="tag" aria-hidden="true">Malayalam</span>
+          <h3 style="margin-top:8px">മുന്നറിയിപ്പ് പോയിന്റുകൾ (20)</h3>
+          <p class="note">Share these with family—especially elders and students.</p>
+        </div>
+        <hr class="divider" />
+        <ol class="ml">
+          <li>അന്യമാർ അയക്കുന്ന ലിങ്കുകൾ അമർത്തരുത്; ലഭ്യത ഉറപ്പാക്കി മാത്രം തുറക്കുക.</li>
+          <li>“വെരിഫിക്കേഷൻ/ക്യൂവൈസി” എന്ന പേരിൽ OTP ചോദിക്കുന്നവർക്ക് ഒരിക്കലും OTP നൽകരുത്.</li>
+          <li>UPI പെയ്മെന്റ് “റിക്വസ്റ്റ്” വന്നാൽ പരിശോധിക്കാതെ സ്വീകരിക്കരുത്.</li>
+          <li>ഇ-കൊമേഴ്‌സ് റീഫണ്ട്/കൂറിയർ റീഷെഡ്യൂൾ എന്ന് വിളിച്ച് ആപ്പ് ഇൻസ്റ്റാൾ ചെയ്യാൻ പറയുന്നവരെ വിശ്വസിക്കരുത്.</li>
+          <li>ബാങ്ക് അല്ലെങ്കിൽ സർക്കാർ ഫോൺ/വാട്സ്ആപ്പ് വഴി പാസ്‌വേഡ് അല്ലെങ്കിൽ OTP ചോദിക്കില്ല.</li>
+          <li>‘ലക്കി ഡ്രോ/ഗിവ്എവേ’ പറഞ്ഞ് മുൻകൂറായി പണം ചോദിക്കുന്നവരിൽ നിന്ന് അകലം പാലിക്കുക.</li>
+          <li>വീഡിയോ കോൾ/സ്ക്രീൻ‑ഷെയർ വഴി ബാങ്കിംഗ് ചെയ്യരുത്.</li>
+          <li>QR കോഡ് സ്കാൻ ചെയ്‌താൽ പണം വരുമെന്ന് പറയുന്നത് തെറ്റാണ് — പലപ്പോഴും പണം പോകും.</li>
+          <li>വ്യക്തിഗത വിവരങ്ങൾ (ആധാർ, പാൻ, കാർഡ് നമ്പർ) അനാവശ്യമായി പങ്കുവെക്കരുത്.</li>
+          <li>സോഷ്യൽ മീഡിയ പ്രൈവസി “Friends/Only me” ആയി ക്രമീകരിക്കുക.</li>
+          <li>സംശയാസ്പദമായ ജോബ്/ഇൻവെസ്റ്റ്‌മെന്റ് ഓഫറുകൾ ഫാക്റ്റ്‑ചെക്ക് ചെയ്യുക.</li>
+          <li>ഒറിജിനൽ ബ്രാൻഡുകൾ പോലെ ഉള്ള പ്രതിരൂപ വെബ്സൈറ്റുകളിൽ നിന്ന് വാങ്ങരുത്.</li>
+          <li>UPI പിന്/ഇന്റർനെറ്റ് ബാങ്കിംഗ് പാസ്‌വേഡ് ഒരിക്കലും ആരോടും പറയരുത്.</li>
+          <li>അക്കൗണ്ടിൽ നിന്ന് ചെറിയ തുകയായി പോകുന്നുണ്ടോ എന്ന് സ്റ്റേറ്റ്‌മെന്റ് നിരന്തരം പരിശോധിക്കുക.</li>
+          <li>“Account blocked/KYC expiry” സന്ദേശങ്ങൾ വന്നാൽ ഔദ്യോഗിക ആപ്പ്/വെബ്സൈറ്റ് വഴി മാത്രം പരിശോധിക്കുക.</li>
+          <li>പരസ്യങ്ങളിൽ കാണുന്ന ഫോൺ നമ്പറുകൾ ഗൂഗിൾ മാപ്സിൽ/അധികൃത സൈറ്റിൽ നിന്നും സ്ഥിരീകരിക്കുക.</li>
+          <li>അജ്ഞാത Wi‑Fi നെറ്റ്വർക്കിൽ ഫിനാൻഷ്യൽ ഇടപാടുകൾ ചെയ്യരുത്.</li>
+          <li>ഇടപാട് പരാജയപ്പെട്ടാൽ ആവർത്തിച്ച് പണമടക്കാതിരിക്കുക — ബാങ്ക്/ആപ്പിന്റെ പിന്തുണയെ ബന്ധപ്പെടുക.</li>
+          <li>കുടുംബാംഗങ്ങൾക്കും മുതിർന്നവർക്കും ഈ സ്കാം രീതികൾ മനസ്സിലാക്കാൻ സഹായിക്കുക.</li>
+          <li>സ്കാം നേരിട്ടാൽ 1930 ഹെൽപ്ലൈനിലേക്കോ cybercrime.gov.in പോർട്ടലിലേക്കോ ഉടൻ പരാതി നൽകുക.</li>
+        </ol>
+        <div class="resources">
+          <a class="link" href="tel:1930">📞 Call 1930</a>
+          <a class="link" href="https://cybercrime.gov.in/" target="_blank" rel="noopener">🛡️ cybercrime.gov.in</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="container section">
+      <div class="panel" style="padding:16px;">
+        <h2 style="margin:0 0 8px;">About K H STORE</h2>
+        <p class="note" style="margin:0 0 10px;">
+          We started as a neighborhood shop and grew with your trust. This page is our way of giving back—by helping everyone in our community stay safe online. If you spot a fake profile using our name, please let us know and report it.
+        </p>
+        <div class="resources">
+          <span class="kbd">Tip</span>
+          <span class="note">Hold <span class="kbd">Ctrl</span> + <span class="kbd">L</span> to quickly check the URL bar before typing any password.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <div class="cards">
+        <div class="card">
+          <h3>How to verify a message fast</h3>
+          <p>Cross‑check on the official app or website, not via the link you received. Search the company’s contact on their verified page or on your previous bills/invoices.</p>
+        </div>
+        <div class="card">
+          <h3>When in doubt, slow down</h3>
+          <p>Scams create urgency: “last chance,” “account blocked,” “act now.” Pause, breathe, verify—rushed decisions cost money.</p>
+        </div>
+        <div class="card">
+          <h3>Keep devices clean</h3>
+          <p>Update OS and apps, disable unknown app installs, and review permissions often. Uninstall apps you don’t recognize.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <hr class="divider" />
+      <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap">
+        <div>© <span id="yr"></span> K H STORE. All rights reserved.</div>
+        <div>Made with care for our community • Kochi, Kerala</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JotForm AI agent lazy-loader + floating button -->
+  <noscript>
+    <div style="position:fixed; right:20px; bottom:20px; z-index:9999; background:var(--panel); color:var(--muted); padding:10px; border-radius:8px; border:1px solid var(--panel-border);">
+      Please enable JavaScript to use the AI assistant.
+    </div>
+  </noscript>
+
+  <script>
+    // Theme toggle with localStorage
+    (function(){
+      const root = document.documentElement;
+      const key = 'khstore-theme';
+      const btn = document.getElementById('themeBtn');
+      const icon = document.getElementById('themeIcon');
+      const saved = localStorage.getItem(key);
+      if(saved){ root.setAttribute('data-theme', saved); }
+      syncIcon();
+
+      btn.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', current);
+        localStorage.setItem(key, current);
+        syncIcon();
+      });
+
+      function syncIcon(){
+        const mode = root.getAttribute('data-theme');
+        if(mode === 'light'){ icon.textContent = '🌞'; }
+        else { icon.textContent = '🌙'; }
+      }
+    }());
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    // Smooth scroll for in-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+  </script>
+
+  <script>
+    /*
+      JotForm agent loader (lazy).
+      - The embed script you provided is loaded only when the user clicks the floating chat button.
+      - This keeps first load fast and avoids extra network calls on page load.
+      - If you want the agent to auto-load, change `autoLoad = true` below.
+    */
+    (function(){
+      const embedSrc = 'https://cdn.jotfor.ms/agent/embedjs/01989293399f7595a1248d4eec7028f5f0c1/embed.js?skipWelcome=1&maximizable=1';
+      let loaded = false;
+      let loadingPromise = null;
+      const autoLoad = false; // set to true if you want the agent loaded on page load
+
+      function loadAgent(){
+        if(loaded) return Promise.resolve();
+        if(loadingPromise) return loadingPromise;
+        loadingPromise = new Promise((resolve, reject)=>{
+          const s = document.createElement('script');
+          s.src = embedSrc;
+          s.async = true;
+          s.onload = ()=>{ loaded = true; resolve(); };
+          s.onerror = (e)=>{ reject(new Error('Failed to load JotForm agent')); };
+          document.body.appendChild(s);
+        });
+        return loadingPromise;
+      }
+
+      // Create floating button (accessible)
+      const btn = document.createElement('button');
+      btn.className = 'chat-fab';
+      btn.id = 'openAgentBtn';
+      btn.type = 'button';
+      btn.title = 'Open AI assistant';
+      btn.setAttribute('aria-label','Open AI assistant');
+      btn.innerHTML = '💬';
+      document.body.appendChild(btn);
+
+      btn.addEventListener('click', async ()=>{
+        try{
+          await loadAgent();
+          // Many embed scripts auto-create UI when loaded. If JotForm exposes a programmatic API, we try to open it.
+          // Because embed APIs differ, we check a few common global names — this is safe (feature-detect).
+          try{
+            if(window.JotForm && window.JotForm.agent && typeof window.JotForm.agent.open === 'function'){
+              window.JotForm.agent.open();
+            } else if(window.jotformAgent && typeof window.jotformAgent.open === 'function'){
+              window.jotformAgent.open();
+            } else if(window._jotform && typeof window._jotform.open === 'function'){
+              window._jotform.open();
+            }
+            // if none of those exist, the embed script will usually inject its own floating UI automatically.
+          }catch(e){
+            // ignore — feature detection only
+            console.warn('JotForm agent loaded but no open() method found (not fatal).', e);
+          }
+        }catch(err){
+          console.error(err);
+          alert('Could not load the AI assistant. Please check console for details.');
+        }
+      });
+
+      // Optional: auto-load the agent after small delay (uncomment to enable)
+      if(autoLoad){
+        // small delay to avoid blocking render
+        setTimeout(()=>{ loadAgent().catch(()=>{}); }, 1200);
+      }
+    }());
+  </script>
+
+  <!-- You can also paste your original JotForm script directly here if you prefer immediate load:
+  <script src='https://cdn.jotfor.ms/agent/embedjs/01989293399f7595a1248d4eec7028f5f0c1/embed.js?skipWelcome=1&maximizable=1'></script>
+  -->
+</body>
+</html>
